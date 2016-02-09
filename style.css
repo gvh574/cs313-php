@@ -1,0 +1,97 @@
+html {
+    background: url(fambarn.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+body {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 45%;
+    height: auto;
+}
+
+h1 {
+    font-family: Aloha;
+    font-size: 4vw;
+    color: white;
+    text-align: center;
+}
+
+@font-face {
+    font-family: 'Aloha';
+    src: url('Aloha.ttf');
+    src: url('Aloha.otf');
+}
+
+p {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Aloha;
+    color: aliceblue;
+    font-size: 1.2vw;
+}
+
+.assign {
+    font-family: Aloha;
+    color: white;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.outerDiv {
+    width: 80%;
+    height: 0px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 1em;
+    font-size: 0px;
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+    font-family: Aloha;
+    color: aliceblue;
+}
+
+.outerDiv:hover {
+    -webkit-transition: width 2s, height 2s, font-size 2s;
+    /* For Safari 3.1 to 6.0 */
+    transition: width 2s, height 2s, font-size 2s;
+    border-right-style: none;
+    border-left-style: none;
+    border-radius: 0px;
+    width: 80%;
+    height: 50px;
+    font-family: Aloha;
+    color: white;
+    font-size: 2vw;
+    text-align: center;
+    padding-top: 25px;
+}
+
+.arrow {
+    margin: 0 auto;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid white;
+}
+
+ul,
+li {
+    text-align: center;
+    list-style-type: none;
+    font-size: 2vw;
+    margin-bottom: 15px;
+}
+
+footer {
+    text-align: right;
+}
