@@ -1,0 +1,78 @@
+CREATE TABLE location
+(
+    location_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+    , city VARCHAR(40) NOT NULL
+    , state VARCHAR(2) NOT NULL
+);
+
+CREATE TABLE user
+(
+    user_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+    , firstName VARCHAR(30) NOT NULL
+    , lastName VARCHAR(30) NOT NULL
+    , picture TEXT
+    , email VARCHAR(30) NOT NULL
+    , password VARCHAR(100) NOT NULL
+    , location_id INT UNSIGNED NOT NULL
+    , FOREIGN KEY(location_id) REFERENCES location(location_id)
+);
+
+CREATE TABLE complex
+(
+    complex_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+    , picture TEXT
+    , street VARCHAR(30) NOT NULL
+    , location_id INT UNSIGNED NOT NULL
+    , type VARCHAR(8) NOT NULL
+    , office_hours VARCHAR(20)
+    , price VARCHAR(6)
+    , FOREIGN KEY(location_id) REFERENCES location(location_id)
+);
+
+CREATE TABLE review
+(
+    review_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+    , date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    , rating VARCHAR(1) NOT NULL
+    , comment TEXT NOT NULL
+);
+
+CREATE TABLE complexReview
+(
+    complexReview_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+    , user_id INT UNSIGNED NOT NULL
+    , complex_id INT UNSIGNED NOT NULL
+    , review_id INT UNSIGNED NOT NULL
+    , FOREIGN KEY(user_id) REFERENCES user(user_id)
+    , FOREIGN KEY(complex_id) REFERENCES complex(complex_id)
+    , FOREIGN KEY(review_id) REFERENCES review(review_id)
+);
+
+
+
+INSERT INTO location(city, state) VALUES('Rexburg', 'ID');
+
+INSERT INTO user(firstName, lastName, email, password, location_id) VALUES('Jackie', 'Hall', 'jackie@gmail.com', 'password', '1'),
+('Sawyer', 'Hall', 'sawyer@gmail.com', 'password', '1');
+
+INSERT INTO complex(name, street, location_id, type, office_hours, price) VALUES('Mountain Lofts', '538 S 2nd W', 1, 'Single', '10AM-7PM', '1625'),
+('Sommerset', '480 S 1st W', 1, 'Single', '10AM-5PM', '1100'),
+('The Grove at Riverside', '311 N 1st E', 1, 'Married', '10AM-5PM', '700'),
+('University Village', '111 W 7th S', 1, 'Married', '1PM-6PM', '685');
+
+INSERT INTO review(rating, comment) VALUES('5', 'This place is great'),
+('4', 'I like their beds'), ('3', 'This place is ok'), ('2', 'Too expensive');
+
+INSERT INTO complexReview(complex_id, review_id, user_id) VALUES(1, 1, 1),
+(2, 2, 2), (3, 3, 3), (4, 4, 3);
+
+
+
+
+
+
+
+
+
+
+
