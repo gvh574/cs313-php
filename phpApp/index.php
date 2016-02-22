@@ -60,15 +60,43 @@ switch ($action) {
         $title = 'Complex Review';
         include 'view/complexReview.php';
         exit;
-    case 'signUp':
+    case 'loginSignin':
         $title = 'Sign Up';
         include 'view/signUp.php';
         exit;
     case 'login':
-        $title = 'Login';
-        include 'view/login.php';
-        exit;
-        
+        if($_POST['type'] == 'signup'){
+            $userCreated = addUser($_POST['form-first-name'], $_POST['form-last-name'], $_POST['form-email'], $_POST['form-password']);
+            if($userCreated)
+            {
+                $message = 'User Successfully Created';
+                $_SESSION['message'] = $message;
+                $title = 'Login';
+                include 'view/profile.php';
+                exit;
+            }else
+            {
+                $_SESSION['message'] = 'Email is already in use. Please select another.';
+                include 'view/signUp.php';         
+                exit;
+            }
+        }
+        else
+        {
+            $exists = verifyUser($_POST['form-username'], $_POST['form-password']);
+            if($exists)
+                include 'view/profile.php';
+            else
+            {
+                $_SESSION['message'] = 'Invalid Credentials';
+                include 'view/signUp.php';
+                exit;
+            }
+        }
+    case 'profile':
+        if(isset($_SESSION['logged_in_user']))
+            include 'view/profile.php';
+        else
+            header('Location: ?action=home');
+      
 }
-
-

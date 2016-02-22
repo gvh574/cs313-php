@@ -12,9 +12,9 @@
     <div class="top-content">
         <div class="inner-bg">
             <div class="container">
+                <?php echo $_SESSION['message']; ?>
                 <div class="row">
                     <div class="col-sm-5">
-
                         <div class="form-box">
                             <div class="form-top">
                                 <div class="form-top-left">
@@ -26,7 +26,7 @@
                                 </div>
                             </div>
                             <div class="form-bottom">
-                                <form role="form" action="" method="post" class="login-form">
+                                <form role="form" action="?action=login" method="POST" class="login-form">
                                     <div class="form-group">
                                         <label class="sr-only" for="form-username">Username</label>
                                         <input type="text" name="form-username" placeholder="Username..." class="form-username form-control" id="form-username">
@@ -35,7 +35,8 @@
                                         <label class="sr-only" for="form-password">Password</label>
                                         <input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
                                     </div>
-                                    <button type="submit" class="btn">Sign in!</button>
+                                    <input type="hidden" name="type" value="signin">
+                                    <button type="submit" class="btn">Sign in</button>
                                 </form>
                             </div>
                         </div>
@@ -57,7 +58,7 @@
                                 </div>
                             </div>
                             <div class="form-bottom">
-                                <form role="form" action="" method="post" class="registration-form">
+                                <form role="form" action="?action=login" method="POST" class="registration-form">
                                     <div class="form-group">
                                         <label class="sr-only" for="form-first-name">First name</label>
                                         <input type="text" name="form-first-name" placeholder="First name..." class="form-first-name form-control" id="form-first-name">
@@ -71,10 +72,11 @@
                                         <input type="text" name="form-email" placeholder="Email..." class="form-email form-control" id="form-email">
                                     </div>
                                     <div class="form-group">
-                                        <label class="sr-only" for="form-about-yourself">About yourself</label>
-                                        <textarea name="form-about-yourself" placeholder="About yourself..." class="form-about-yourself form-control" id="form-about-yourself"></textarea>
+                                        <label class="sr-only" for="form-password">Password</label>
+                                        <input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
                                     </div>
-                                    <button type="submit" class="btn">Sign me up!</button>
+                                    <input type="hidden" name="type" value="signup">
+                                    <button type="submit" class="btn">Sign me up</button>
                                 </form>
                             </div>
                         </div>
@@ -95,7 +97,6 @@
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/jquery.backstretch.min.js"></script>
     <script src="assets/js/scripts.js"></script>
-
     <!--[if lt IE 10]>
 <script src="assets/js/placeholder.js"></script>
 <![endif]-->
@@ -103,5 +104,5 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 </body>
-
 </html>
+<?php unset($_SESSION['message']); ?>
