@@ -102,7 +102,7 @@ function addUser($firstName, $lastName, $email, $password) {
     if($rowCount == 0){
 
     try {
-        $sql = 'INSERT INTO user(firstName, lastName, email, password, location_id)
+        $sql = 'INSERT INTO housing.user(firstName, lastName, email, password, location_id)
                 VALUES (:firstName, :lastName, :email, :password, 1)';
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':firstName', $firstName, PDO::PARAM_STR);
