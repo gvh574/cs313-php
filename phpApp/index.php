@@ -65,7 +65,8 @@ switch ($action) {
         include 'view/signUp.php';
         exit;
     case 'login':
-        if($_POST['type'] == 'signup'){
+        if($_POST['type'] == 'signup')
+        {
             $userCreated = addUser($_POST['form-first-name'], $_POST['form-last-name'], $_POST['form-email'], $_POST['form-password']);
             if($userCreated)
             {
@@ -85,7 +86,12 @@ switch ($action) {
         {
             $exists = verifyUser($_POST['form-username'], $_POST['form-password']);
             if($exists)
+            {
+                $reviews = getReviewInfo($_SESSION['logged_in_user']);
+                $userProfile = getProfileInfo($_SESSION['logged_in_user']);
                 include 'view/profile.php';
+                exit;
+            }    
             else
             {
                 $_SESSION['message'] = 'Invalid Credentials';
@@ -93,10 +99,18 @@ switch ($action) {
                 exit;
             }
         }
+        exit;
     case 'profile':
         if(isset($_SESSION['logged_in_user']))
+        {
+            $reviews = getReviewInfo($_SESSION['logged_in_user']);
+            $userProfile = getProfileInfo($_SESSION['logged_in_user']);
             include 'view/profile.php';
+            exit;
+        }
         else
+        {
             header('Location: ?action=home');
-      
+            exit;
+        }
 }

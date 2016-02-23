@@ -12,7 +12,7 @@
     <div class="top-content">
         <div class="inner-bg">
             <div class="container">
-                <?php echo $_SESSION['message']; ?>
+                <?php echo '<div id="message">'.$_SESSION['message'].'</div>' ?>
                 <div class="row">
                     <div class="col-sm-5">
                         <div class="form-box">
@@ -105,4 +105,6 @@
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>
-<?php unset($_SESSION['message']); ?>
+<?php
+unset($_SESSION['message']);
+?>

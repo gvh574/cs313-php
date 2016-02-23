@@ -117,6 +117,7 @@ function addUser($firstName, $lastName, $email, $password) {
     }
 
     if ($result) {
+        $_SESSION['logged_in_user'] = $email;
         return TRUE;
     } else {
         return FALSE;
@@ -157,6 +158,57 @@ function verifyUser($email, $password) {
         return 0;
 
     
+}
+
+
+function getProfileInfo($email) {
+    $db = dbConnection();
+    try {
+        $sql = 'SELECT firstName, lastName, picture, city, state, zipCode FROM user INNER JOIN location ON user.location_id=location.location_id WHERE user.email=:email';        
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+        $profile = $stmt->fetchAll();
+        $stmt->closeCursor();
+    } catch (PDOException $exc) {
+        return FALSE;
+    }
+
+    if (!empty($profile)) {
+        return $profile;
+    } else {
+        return FALSE;
+    }
+}
+
+function getReviewInfo($email) {
+    $db = dbConnection();
+    try {
+        $sql = 'SELECT complex.name, complex.street, location.city, location.state, location.zipCode, review.date, review.rating, review.comment FROM complex 
+        JOIN complexReview 
+        ON complex.complex_id=complexReview.complex_id 
+        JOIN review 
+        ON complexReview.review_id=review.review_id 
+        JOIN location 
+        ON complex.location_id=location.location_id 
+        JOIN user 
+        ON complexReview.user_id=user.user_id WHERE user.email=:email';        
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+        $reviews = $stmt->fetchAll();
+        $stmt->closeCursor();
+    } catch (PDOException $exc) {
+        return FALSE;
+    }
+
+    if (!empty($reviews)) {
+        return $reviews;
+    } else {
+        return FALSE;
+    }
 }
 
 function passHash($pass)
