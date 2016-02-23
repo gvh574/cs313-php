@@ -16,14 +16,12 @@ if ($openShiftVar === null || $openShiftVar == "")
 $dbHost = 'localhost';
 $dbUser = 'root';
 $dbPassword = 'root';
-$dbName = 'housing';
 }
 else 
 { 
 // In the openshift environment
 //echo "Using openshift credentials: ";
 
-$dbName = 'housing';
 $dbHost = getenv('OPENSHIFT_MYSQL_DB_HOST');
 $dbPort = ':'.getenv('OPENSHIFT_MYSQL_DB_PORT'); 
 $dbUser = getenv('OPENSHIFT_MYSQL_DB_USERNAME');
