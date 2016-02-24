@@ -113,4 +113,7 @@ switch ($action) {
             header('Location: ?action=home');
             exit;
         }
+    case 'addReview':
+        $reviewAdded = addReview($_POST['complex_id'], $_POST['review'], $_SESSION['logged_in_user']);
+        header('Location: ?action=complexReview&id='.$_POST['complex_id']);
 }

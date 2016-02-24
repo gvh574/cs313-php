@@ -6,21 +6,23 @@
     <body>
         <div class="container">
             <?php include 'modules/header.php'; ?>
+            <div style="height:100px;"></div>
             
-
-            <div class="jumbotron">
-                <h1>Search bar here</h1>
-                <form action="." method="POST" class="navbar-form" role="search">
+                <form action="." method="POST" class="navbar-form text-center" role="search">
                     <div class="input-group add-on">
-                        <input class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text">
+                        <input class="form-control" placeholder="search.." name="srch-term" id="srch-term" type="text">
                         <input type="hidden" name="action" value="results">
                         <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            <button class="btn btn-default" type="submit">
+                                <span class="glyphicon glyphicon-search"></span></button>
                         </div>
                     </div>
                 </form>
-
+            
+            <div name="img-container">
+                <img src="images/drawingCity.png" class="img-responsive">
             </div>
+                            
 
             <footer class="footer">
                 <?php include 'modules/footer.php'; ?>

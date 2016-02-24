@@ -185,13 +185,11 @@ function getProfileInfo($email) {
 function getReviewInfo($email) {
     $db = dbConnection();
     try {
-        $sql = 'SELECT complex.name, complex.street, location.city, location.state, location.zipCode, review.date, review.rating, review.comment FROM complex 
-        JOIN complexReview 
-        ON complex.complex_id=complexReview.complex_id 
+        $sql = 'SELECT complex.name, complex.street, review.date, review.rating, review.comment FROM complexReview 
+        JOIN complex
+        ON complexReview.complex_id=complex.complex_id 
         JOIN review 
         ON complexReview.review_id=review.review_id 
-        JOIN location 
-        ON complex.location_id=location.location_id 
         JOIN user 
         ON complexReview.user_id=user.user_id WHERE user.email=:email';        
 
@@ -210,6 +208,87 @@ function getReviewInfo($email) {
         return FALSE;
     }
 }
+
+
+function addReview($complexID, $review, $email) {
+    
+    $reviewID = insertReview($review);
+    $userID = getUserId($email);
+    
+    $db = dbConnection();
+        try {
+            $sql = 'INSERT INTO complexReview(complex_id, review_id, user_id) VALUES(:complexID, :reviewID, :userID)';
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':complexID', $complexID, PDO::PARAM_INT);
+            $stmt->bindValue(':reviewID', $reviewID, PDO::PARAM_INT);
+            $stmt->bindValue(':userID', $userID['user_id'], PDO::PARAM_INT);
+            $result = $stmt->execute();
+            $stmt->closeCursor();
+            
+        } catch (PDOException $e) {
+            echo $message = "PDO Failure";
+        }
+
+        if ($result) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+}
+
+function getUserId($email)
+{
+    $db = dbConnection();
+    try {
+        $sql = 'SELECT user_id FROM user WHERE email=:email ';        
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+        $id = $stmt->fetch();
+        $stmt->closeCursor();
+    } catch (PDOException $exc) {
+        return FALSE;
+    }
+
+    if (!empty($id)) {
+        return $id;
+    } else {
+        return FALSE;
+    }
+    
+    
+}
+
+function insertReview($review)
+{
+    $db = dbConnection();
+    try {
+        $sql = 'INSERT INTO review(comment) VALUES(:review)';
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':review', $review, PDO::PARAM_STR);
+        $stmt->execute();
+        $lastid = $db->lastInsertId();
+
+        $stmt->closeCursor();
+    } catch (PDOException $e) {
+        echo $message = "PDO Failure";
+    }
+
+    if ($lastid) {
+        return $lastid;
+    } else {
+        return FALSE;
+    } 
+}
+
+
+
+
+
+
+
+
 
 function passHash($pass)
 {

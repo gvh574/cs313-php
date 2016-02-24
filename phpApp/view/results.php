@@ -8,23 +8,27 @@
 <body>
     <div class="container">
         <?php include 'modules/header.php'; ?>
-
-            <div class="row marketing">
-                <?php foreach($searchList as $complex){ ?>
-                    <a href="?action=complexReview&<?php echo 'id='.$complex['complex_id']?>">
-                        <div>
-                            <h4><?php echo $complex['name'] ?></h4>
+        <div class="panel-group">
+            
+        <?php foreach($searchList as $complex){ ?>
+            <a href="?action=complexReview&<?php echo 'id='.$complex['complex_id']; ?>">
+                <div class="panel panel-default">
+                    
+                    <div class="panel-heading">
+                        <span><b><?php echo $complex['name']; ?></b><span>
+                    </div>
+                    <div class="panel-body">
+                        <p><?php echo $complex['type']; ?></p>
                             <p>
-                                <?php echo $complex['type'] ?>
+                                <?php echo $complex['street'].', '.$complex['city'].' '.$complex['state'].' '.$complex['zipCode']; ?>
                             </p>
-                            <p>
-                                <?php echo $complex['street'].', '.$complex['city'].' '.$complex['state'].' '.$complex['zipCode'] ?>
-                            </p>
-                        </div>
-                    </a>
-                    <?php } ?>
+                    </div>
+                </div>
+            </a>
+        <?php } ?>
 
-            </div>
+
+        </div>
             <footer class="footer">
                 <?php include 'modules/footer.php'; ?>
             </footer>

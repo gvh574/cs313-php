@@ -9,7 +9,6 @@
     <div class="container">
         <?php include 'modules/header.php'; ?>
             <?php echo '<div id="message">'.$_SESSION['message'].'</div>'; ?>
-        <?php var_dump($reviews); ?>
 
                 <div class="container">
                     <div class="row">
@@ -20,7 +19,7 @@
                                 </div>
                                 <div class="panel-body">
                                     <div class="row">
-                                        <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive"> </div>
+                                        <div class="col-md-3 col-lg-3 " align="center"> <img class="img-circle" alt="User Pic" src="<?php echo $userProfile[0]['picture'] ?>" width="135" height="135"> </div>
 
                                         <div class=" col-md-9 col-lg-9 ">
                                             <table class="table table-user-information">
@@ -47,14 +46,40 @@
                             </div>
                         </div>
                         <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">Your Reviews</h5>
+                            </div>
+                            
+                        <?php  if(!empty($reviews) && $reviews != FALSE) { ?>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Complex</th>
+                                        <th>Date/Time</th>
+                                        <th>Review</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($reviews as $item) { ?>
+                                    <tr>
+                                        <td><?php echo $item['name'];?></td>
+                                        <td><?php echo $item['date'];?></td>
+                                        <td><?php echo $item['comment'];?></td>
+                                    </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                           <?php } else {?>
+                            <p>You haven't submitted any reviews</p>
+                            <?php } ?>
+                            </div>
                         </div>
                     </div>
-                </div>
 
                 <footer class="footer">
                     <?php include 'modules/footer.php'; ?>
                 </footer>
-    </div>
+            </div>
     <!-- /container -->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
